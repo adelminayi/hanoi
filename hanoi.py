@@ -10,7 +10,7 @@ from pyfiglet import figlet_format
 
 board = [[],[],[]]
 moves = 0
-number_of_disks = 4 
+number_of_disks = 3 
 disk_character = "#"
 
 
@@ -85,7 +85,8 @@ def game_loop():
     if finished():
         logo()
         draw_board()
-        print("Congratulations! You got {} stars!".format(score_moves(moves,number_of_disks)))
+        draw_stars(score_moves(moves,number_of_disks))
+        print("Congratulations! You solved the puzzle!")
         press_enter()
     return True
 
@@ -95,9 +96,9 @@ def score_moves(moves, n):
     best_moves = 2**n - 1
     stars = 1
     proportion = (moves - best_moves) / best_moves
-    if proportion <= 0.25:
+    if proportion <= 0.2:
         stars = 3
-    elif proportion <= 0.5:
+    elif proportion <= 0.4:
         stars = 2
     return stars
 
@@ -165,6 +166,7 @@ def draw_board():
     display = "=="
     for x in range(3):
         display += "="*mid + str(x+1) + "="*rest
+    display += "="
     for row in range(number_of_disks+1):
         newstr = ""
         for column in range(3):
@@ -178,8 +180,29 @@ def draw_board():
         display = newstr + "\n" + display
     print("Move all of the disks onto the last peg.")
     print("\n"+display)
-    print("\nEnter your move.\nExample:\n1, 2 moves the top disk from column 1 to column 2.\n")
-    print("QUIT to quit. HELP for help")
+    if not finished():
+        print("\nEnter your move.\nExample:\n1, 2 moves the top disk from column 1 to column 2.\n")
+        print("QUIT to quit. HELP for help")
+
+
+def draw_stars(stars):
+    star = [
+        "    .    ",
+        " __.'.__ ",
+        "'-.   .-'",
+        "  /.'.\  ",
+        "  '   '  "
+    ]
+    print("")
+    for line in star:
+        linetext = line;
+        count = stars
+        while count >= 2:
+            linetext += " " + line;
+            count -= 1
+        linetext = linetext.center(40)
+        print(linetext)
+
 
 ###################
 # Run the Program #
