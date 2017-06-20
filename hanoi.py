@@ -42,7 +42,7 @@ def press_enter():
 
 def finished():
     '''Checks if the game has been solved.'''
-    if len(board[1]) ==  number_of_disks or len(board[2]) == number_of_disks:
+    if len(board[2]) == number_of_disks:
         return True
     return False
 
@@ -176,7 +176,7 @@ def draw_board():
                 drawing += "|" + drawing
             newstr += "   " + drawing.center(number_of_disks*2+1)
         display = newstr + "\n" + display
-        
+    print("Move all of the disks onto the last peg.")
     print("\n"+display)
     print("\nEnter your move.\nExample:\n1, 2 moves the top disk from column 1 to column 2.\n")
     print("QUIT to quit. HELP for help")
